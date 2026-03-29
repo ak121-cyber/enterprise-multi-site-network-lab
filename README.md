@@ -196,6 +196,16 @@ enterprise-multibranch-network-lab
 
 ---
 
+## Troubleshooting Notes
+
+During the implementation of this network simulation several configuration issues were encountered and resolved. Initially, DHCP requests from HQ clients failed because VLAN interfaces on the Layer-3 switch were not forwarding DHCP broadcasts. This was diagnosed by checking interface status and VLAN configuration using commands such as `show ip interface brief` and `show vlan brief`. The issue was resolved by adding DHCP relay (`ip helper-address`) on the relevant VLAN interfaces so that DHCP requests could reach the centralized DHCP server.
+
+Another issue occurred with branch clients where PC6 could not obtain an IP address. After verifying routing and interface connectivity, the problem was traced to the Branch router configuration. Adding the DHCP relay command on the branch router interface successfully allowed DHCP requests to reach the HQ DHCP server.
+
+Additional troubleshooting involved verifying trunk links and routing tables between HQ, ISP, and Branch routers using commands like `show interfaces trunk` and `show ip route`. These diagnostic steps ensured proper VLAN communication and full connectivity between all networks.
+
+---
+
 # Tools Used
 
 * Cisco Packet Tracer
@@ -206,6 +216,4 @@ enterprise-multibranch-network-lab
 
 # Author
 
-AK
-Electronics and Communication Engineering Student
-Networking & Cloud Infrastructure Enthusiast
+Akshay Kumar
